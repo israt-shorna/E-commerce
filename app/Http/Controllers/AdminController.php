@@ -25,6 +25,27 @@ class AdminController extends Controller
     public function store(Request $request)
     {
 
+
+        // $validate=validator::make($request->all(),[
+
+        //   'Name'=>'required',
+        //   'Email'=>'required',
+        //   'Mobile Number'=>'required|numeric|gt:0
+
+        // ]);
+
+        // if ($validate-> fails()){
+        //     notify()->error($validate->getMessageBag());
+        //     return redirect()->back();
+
+        // }
+
+        // else{
+
+        //     notify()->success('Admin created successfully!');
+
+        // }
+        // return redirect()->back();
         
         Admin::create([
 

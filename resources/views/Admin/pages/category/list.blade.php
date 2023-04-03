@@ -22,8 +22,8 @@
       <td>{{$data->status}}</td>
       <td>{{$data->description}}</td>
       <td>
-        <a href="" class='btn btn-info'>View</a>
-        <a href=""class='btn btn-danger'>Delete</a>
+        <a href="{{route('category.view', $data->id)}}" class='btn btn-info'>View</a>
+        <a href="{{route('category.delete', $data->id)}}"class='btn btn-danger'>Delete</a>
       </td>
       
     </tr>

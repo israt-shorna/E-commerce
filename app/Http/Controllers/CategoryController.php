@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use notify;
+use toastr;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -27,13 +29,26 @@ class CategoryController extends Controller
             'description'=>$request->description,
 
         ]);
-
-        return redirect()->back();
+        
+    //  toastr()->success('Created successfully');
+        return redirect()->route('category.list');
     }
 
 
 
-    public function view(){
+    public function view($id){
+
+        $cat= Category::find($id);
+        return view('Admin.pages.category.view',compact('cat'));
         
+
+    }
+
+
+    public function delete($id){
+
+        Category::find($id)->delete();
+        // toastr()->error('deleted successfully');
+        return redirect()->back();
     }
 }
