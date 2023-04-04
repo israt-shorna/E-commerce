@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Frontend\HomeController as FrontendHome;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// Website routes
+Route::get('/',[FrontendHome::class,'website'])->name('website');
+
+
+// Admin panel routes
+
+Route::group(['prefix'=>'admin'],function(){ 
 
 Route::get('/login',[HomeController::class,'login'])->name('login');
 Route::post('/dologin',[HomeController::class,'dologin'])->name('dologin');
@@ -45,5 +54,7 @@ Route::get('/category/form',[CategoryController::class,'form'])->name('category.
 Route::post('/category/store',[CategoryController::class,'store'])->name('category.store');
 Route::get('/category/view{id}',[CategoryController::class,'view'])->name('category.view');
 Route::get('/category/delete{id}',[CategoryController::class,'delete'])->name('category.delete');
+
+});
 
 });
