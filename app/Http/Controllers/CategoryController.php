@@ -30,7 +30,7 @@ class CategoryController extends Controller
 
         ]);
         
-    //  toastr()->success('Created successfully');
+     toastr()->success('Created successfully');
         return redirect()->route('category.list');
     }
 
@@ -48,7 +48,7 @@ class CategoryController extends Controller
     public function delete($id){
 
         Category::find($id)->delete();
-        // toastr()->error('deleted successfully');
+        toastr()->error('deleted successfully');
         return redirect()->back();
     }
 }

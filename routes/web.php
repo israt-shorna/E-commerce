@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Frontend\HomeController as FrontendHome;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Frontend\HomeController as FrontendHome;
 
 
 
@@ -54,6 +55,13 @@ Route::get('/category/form',[CategoryController::class,'form'])->name('category.
 Route::post('/category/store',[CategoryController::class,'store'])->name('category.store');
 Route::get('/category/view{id}',[CategoryController::class,'view'])->name('category.view');
 Route::get('/category/delete{id}',[CategoryController::class,'delete'])->name('category.delete');
+
+
+
+
+Route::get('/products/list',[ProductController::class,'list'])->name('products.list');
+Route::get('/products/form',[ProductController::class,'form'])->name('products.form');
+Route::post('/products/store',[ProductController::class,'store'])->name('products.store');
 
 });
 

@@ -15,9 +15,9 @@
   </thead>
   <tbody>
 
-  @foreach($cat as $data)
+  @foreach($cat as $key=>$data)
     <tr>
-      <th scope="row">{{$data->id}}</th>
+      <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
       <td>{{$data->status}}</td>
       <td>{{$data->description}}</td>
