@@ -15,7 +15,7 @@
   </thead>
   <tbody>
 
-  @foreach($cat as $key=>$data)
+  @foreach($categories as $key=>$data)
     <tr>
       <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
@@ -36,7 +36,7 @@
   </tbody>
 </table>
 
-{{$cat->links()}}
+<!-- {{$categories->links()}} -->
 
 
 

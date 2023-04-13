@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,5 +24,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
+
+        $categories=Category::all();
+        View::share('categories',$categories);
+
+        $products=Product::all();
+        View::share('products',$products);
     }
 }

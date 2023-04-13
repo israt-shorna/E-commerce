@@ -24,6 +24,12 @@ use App\Http\Controllers\Frontend\HomeController as FrontendHome;
 
 // Website routes
 Route::get('/',[FrontendHome::class,'website'])->name('website');
+Route::get('/product-search',[FrontendHome::class,'productSearch'])->name('product.search');
+Route::get('/product-under-category/{id}',[FrontendHome::class,'productUnderCategory'])->name('product.under.category');
+Route::post('/user-store',[FrontendHome::class,'userStore'])->name('user.store');
+Route::post('/user-login',[FrontendHome::class,'userLogin'])->name('user.login');
+Route::get('/user-logout',[FrontendHome::class,'userLogout'])->name('user.logout');
+
 
 
 // Admin panel routes

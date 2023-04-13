@@ -11,9 +11,9 @@ class CategoryController extends Controller
 {
     public function list(){
 
-        $cat= Category::paginate(2);
+        $categories= Category::paginate(2);
 
-        return view ('Admin.pages.category.list', compact('cat'));
+        return view ('Admin.pages.category.list', compact('categories'));
     }
 
     public function form(){
@@ -38,8 +38,8 @@ class CategoryController extends Controller
 
     public function view($id){
 
-        $cat= Category::find($id);
-        return view('Admin.pages.category.view',compact('cat'));
+        $categories= Category::find($id);
+        return view('Admin.pages.category.view',compact('categories'));
         
 
     }
