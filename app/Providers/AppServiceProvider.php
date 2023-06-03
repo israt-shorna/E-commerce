@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
-         
+
         $categories=[];
         if (Schema::hasTable('categories')){
         $categories=Category::all();
@@ -33,7 +33,12 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('categories',$categories);
 
-        $products=Product::all();
-        View::share('products',$products);
+        $products=[];
+        if(Schema::hasTable('products'))
+        {
+            $products=Product::all();
+            View::share('products',$products);
+        }
+
     }
 }

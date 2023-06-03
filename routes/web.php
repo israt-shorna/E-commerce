@@ -44,7 +44,7 @@ Route::post('/vendor/login',[VendorController::class,'vendorLogin'])->name('vend
 
 // Route::group(['name'=>'user'],function(){});
 
-Route::group(['prefix'=>'admin'],function(){ 
+Route::group(['prefix'=>'admin'],function(){
 
 Route::get('/login',[HomeController::class,'login'])->name('login');
 Route::post('/dologin',[HomeController::class,'dologin'])->name('dologin');
@@ -94,6 +94,8 @@ Route::get('/role/delete/{id}',[RoleController::class,'delete'])->name('role.del
 
 Route::get('/permission/list',[PermissionController::class, 'list'])->name('permission.list');
 
+
+    Route::get('/permission/list-new',[PermissionController::class, 'list'])->name('permission.list.new');
 
 
 
