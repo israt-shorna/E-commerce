@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
     public function list(){
-        $admins = Admin::paginate(4);
+        $admins = User::where('type','=','admin')->paginate(4);
 
         return view ('Admin.pages.admin.list',compact('admins'));
     }
@@ -22,53 +24,74 @@ class AdminController extends Controller
     }
 
 
+
+
     public function store(Request $request)
     {
 
 
-        // $validate=validator::make($request->all(),[
+        $validate=Validator::make($request->all(),[
 
-        //   'Name'=>'required',
-        //   'Email'=>'required',
-        //   'Mobile Number'=>'required|numeric|gt:0
 
-        // ]);
+          'admin_name'=>'required',
+          'admin_email'=>'required',
+          'password'=>'required|min:5',
+          
 
-        // if ($validate-> fails()){
-        //     notify()->error($validate->getMessageBag());
-        //     return redirect()->back();
+        ]);
 
-        // }
+        if ($validate-> fails()){
+            toastr()->error($validate->getMessageBag());
+            return redirect()->back();
 
-        // else{
+        }
 
-        //     notify()->success('Admin created successfully!');
-
-        // }
-        // return redirect()->back();
-        
-        Admin::create([
+      
+        User::create([
 
             'name'=>$request->admin_name,
-            'mobile_number'=>$request->contact,
+           
+            'email'=>$request->admin_email,
+            'password'=>bcrypt($request->password),
+            'type'=>'admin'
             
         ]);
-        return redirect()->back();
+        
+
+
+
+
+            toastr()->success('Admin created successfully!');
+            return redirect()->back();
+    
+
+
+
+     
+
+
+        
+       
+
+
+        
+      
 
 
     }
 
 
     public function view($id){
-        $admin=Admin::find($id);
+        $admin=User::find($id);
         return view('Admin.pages.admin.view',compact('admin'));
     }
 
 
     public function delete($id){
-        Admin::find($id)->delete();
+        User::find($id)->delete();
         return redirect()->back();
 
 
     }
 }
+    

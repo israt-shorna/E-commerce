@@ -17,16 +17,27 @@ class CategoryController extends Controller
     }
 
     public function form(){
+        $categories=Category::all();
 
-        return view('Admin.pages.category.form');
+        return view('Admin.pages.category.form', compact('categories'));
     }
 
     public  function store(Request $request){
+
+        $fileName="";
+        if($request->hasFile('image')){
+            $fileName=date('ymdhis').'.'.$request->file('image')->getClientOriginalExtension();
+            $request->file('image')->storeAs('/uploads',$fileName);
+        }
+
+        
 
         Category::create([
             'name'=>$request->category_name,
             'status'=>$request->status,
             'description'=>$request->description,
+            'parent_id'=>$request->parent_id,
+            'image'=>$fileName
 
         ]);
         
@@ -50,5 +61,40 @@ class CategoryController extends Controller
         Category::find($id)->delete();
         toastr()->error('deleted successfully');
         return redirect()->back();
+    }
+
+    public function edit($id){
+ 
+        $categories=Category::find($id);
+        $parent=Category::all();
+        return view('Admin.pages.category.edit', compact('categories', 'parent'));
+        
+
+    }
+
+
+    public function update(Request $request, $id){
+        $fileName="";
+        if($request->hasFile('image')){
+            $fileName=date('ymdhis').'.'.$request->file('image')->getClientOriginalExtension();
+            $request->file('image')->storeAs('/uploads',$fileName);
+        }
+
+        $categories=Category::find($id);
+         
+        $categories->update([
+            'name'=>$request->category_name,
+            'status'=>$request->status,
+            'description'=>$request->description,
+            'parent_id'=>$request->parent_id,
+            'image'=>$fileName
+
+        ]);
+        
+     toastr()->success('Edited successfully');
+        return redirect()->route('category.list');
+
+
+
     }
 }

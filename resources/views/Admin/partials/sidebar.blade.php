@@ -18,6 +18,21 @@
                     <span>Admin</span></a>
             </li>
 
+
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{{Route('role.list')}}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Role</span></a>
+            </li>
+
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{{Route('permission.list')}}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Permission</span></a>
+            </li>
+
         
 
            
@@ -37,6 +52,9 @@
                     </div>
                 </div>
             </li>
+
+            
+
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">

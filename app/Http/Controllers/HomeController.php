@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -9,7 +10,9 @@ class HomeController extends Controller
 {
     public function home(){
 
-        return view ('Admin.pages.home');
+        $product=Product::all()->count();
+
+        return view ('Admin.pages.home',compact('product'));
     }
 
 

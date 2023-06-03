@@ -11,16 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vendors', function (Blueprint $table) {
-            $table->id();
+        Schema::create('permissions', function (Blueprint $table) {
             $table->string('name');
-            $table->integer('contact');
-            $table->string('address');
-            $table->string('email');
-            $table->string('bank');
-            $table->string('city');
-            $table->string('image');
-            $table->string('password');
+            $table->string('status');
+            $table->id();
             $table->timestamps();
         });
     }
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('permissions');
     }
 };

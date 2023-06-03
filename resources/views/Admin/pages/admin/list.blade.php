@@ -11,7 +11,7 @@
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Mobile Number</th>
-      <th scope="col">Active</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>

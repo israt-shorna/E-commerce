@@ -32,6 +32,6 @@
   </tbody>
 </table>
 
-{{$categories->links()}}
+{{$products->links()}}
 
 @endsection

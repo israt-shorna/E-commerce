@@ -16,9 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('status')->default('active');
             $table->string('description');
+            $table->string('image');
+            $table->foreignId('parent_id')->nullable()->constrained('categories')->cascadeOnDelete();
+
         
             $table->timestamps();
         });
+
+
     }
 
     /**

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function list(){
-        $products=Product::with('category')->get();
+        $products=Product::with('category')->paginate('2');
 
         return view('Admin.pages.products.list',compact('products'));
     }

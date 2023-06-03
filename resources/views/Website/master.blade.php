@@ -51,6 +51,7 @@
                            <li><a href="#">New Releases</a></li>
                            <li><a href="#">Today's Deals</a></li>
                            <li><a href="#">Customer Service</a></li>
+                           <li><a href="{{route('vendor.home')}}">Vendors</a></li>
                         </ul>
                      </div>
                   </div>
