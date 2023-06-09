@@ -2,7 +2,7 @@
 
 @section('content')
 
-<a class="btn btn-success my-2"> add new</a>
+
 
 <table class="table">
   <thead>

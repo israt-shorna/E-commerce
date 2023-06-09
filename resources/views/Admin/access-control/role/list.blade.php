@@ -4,6 +4,8 @@
 
 <a href="{{route('role.form')}}" class="btn btn-success my-2"> add new</a>
 
+<a href="{{route('role.permission')}}" class="btn btn-success my-2"> Assign</a>
+
 <table class="table">
   <thead>
     <tr>

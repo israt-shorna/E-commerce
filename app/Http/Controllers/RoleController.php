@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -59,5 +60,18 @@ class RoleController extends Controller
         Role::find($id)->delete();
         return redirect()->route('role.list');
     }
+
+
+
+   public function rolePermission(){
+
+    $roles=Role::all();
+    $permissions=Permission::all();
+
+    return view('Admin.access-control.role-permission', compact('roles','permissions'));
+
+
+
+   }
 
 }

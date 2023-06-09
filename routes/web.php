@@ -93,9 +93,10 @@ Route::get('/role/delete/{id}',[RoleController::class,'delete'])->name('role.del
 
 
 Route::get('/permission/list',[PermissionController::class, 'list'])->name('permission.list');
+Route::get('/permission/list-new',[PermissionController::class, 'list'])->name('permission.list.new');
 
 
-    Route::get('/permission/list-new',[PermissionController::class, 'list'])->name('permission.list.new');
+Route::get('/role/permission',[RoleController::class, 'rolePermission'])->name('role.permission');
 
 
 
