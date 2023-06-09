@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\RolePermission;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -16,7 +17,7 @@ class RoleController extends Controller
 
 
     public function form(){
-        
+
 
         return view('Admin.access-control.role.form');
     }
@@ -63,14 +64,33 @@ class RoleController extends Controller
 
 
 
-   public function rolePermission(){
+   public function rolePermission($roleId){
 
-    $roles=Role::all();
+    $role=Role::with('permissions')->find($roleId);
+
     $permissions=Permission::all();
 
-    return view('Admin.access-control.role-permission', compact('roles','permissions'));
+    return view('Admin.access-control.role-permission', compact('role','permissions'));
 
 
+
+   }
+
+
+    public function assignPermission(Request $request,$roleId)
+    {
+
+
+
+        foreach ($request->selected_permissions as $permission)
+        {
+            RolePermission::create([
+                'role_id'=>$roleId,
+                'permission_id'=>$permission
+            ]);
+        }
+
+        return redirect()->back();
 
    }
 

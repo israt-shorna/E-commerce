@@ -11,7 +11,7 @@
 
     <title>SB Admin 2 - Dashboard</title>
 
-  
+
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -34,7 +34,7 @@
   @include('Admin.partials.sidebar')
 
 
-  
+
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -67,12 +67,11 @@
          @include('Admin.partials.header')
 
                 <!-- Begin Page Content -->
-        
+
 
                 @yield('content')
 
 
-             
 
 
 
@@ -96,16 +95,17 @@
 
 
 
-            
+
+
             <!-- End of Main Content -->
 
             <!-- Footer -->
-           
-           
-           
-    @include('Admin.partials.footer')
-           
-           
+
+
+
+{{--    @include('Admin.partials.footer')--}}
+
+
 
 
 
@@ -168,9 +168,9 @@
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
-    
 
-    
+
+
 
 </body>
 

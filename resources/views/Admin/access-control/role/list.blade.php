@@ -4,7 +4,7 @@
 
 <a href="{{route('role.form')}}" class="btn btn-success my-2"> add new</a>
 
-<a href="{{route('role.permission')}}" class="btn btn-success my-2"> Assign</a>
+
 
 <table class="table">
   <thead>
@@ -12,19 +12,20 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Status</th>
-     
+        <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
 
    @foreach($roles as $key=>$data)
-   
+
     <tr>
       <th scope="row">{{$key+1}}</th>
       <td>{{$data->name}}</td>
       <td>{{$data->status}}</td>
-      
+
       <td>
+          <a href="{{route('role.permission',$data->id)}}" class="btn btn-success my-2"> Assign</a>
        <a href="{{route('role.edit', $data->id)}}" class="btn btn-info">Edit</a>
        <a href="{{route('role.delete', $data->id)}}" class="btn btn-danger">Delete</a>
       </td>
