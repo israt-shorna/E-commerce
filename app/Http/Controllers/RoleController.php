@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\RolePermission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -71,26 +72,42 @@ class RoleController extends Controller
     $permissions=Permission::all();
 
     return view('Admin.access-control.role-permission', compact('role','permissions'));
-
-
-
    }
 
 
     public function assignPermission(Request $request,$roleId)
     {
 
+        try {
 
+            DB::beginTransaction();
+            $getPermission=RolePermission::where('role_id',$roleId)->get();
+            if($getPermission->count()>0)
+            {
+                $getPermission->each->delete();
+            }
 
-        foreach ($request->selected_permissions as $permission)
+            if(!is_null($request->selected_permissions))
+            {
+                foreach ($request->selected_permissions as $permission)
+                {
+                    RolePermission::create([
+                        'rolee_id'=>$roleId,
+                        'permission_id'=>$permission
+                    ]);
+            }
+            }
+
+            DB::commit();
+            return redirect()->back();
+
+        }catch(\Throwable $exception)
         {
-            RolePermission::create([
-                'role_id'=>$roleId,
-                'permission_id'=>$permission
-            ]);
+            DB::rollBack();
+            toastr()->error('Something went wrong.');
+            return redirect()->back();
         }
 
-        return redirect()->back();
 
    }
 
