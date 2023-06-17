@@ -91,6 +91,7 @@ Route::group(['prefix'=>'admin'],function(){
 
 
             Route::get('/permission/list',[PermissionController::class, 'list'])->name('permission.list');
+            Route::get('/permission-get-data',[PermissionController::class, 'getPermissions'])->name('permission.get.data');
             Route::get('/permission/list-new',[PermissionController::class, 'list'])->name('permission.list.new');
 
 
