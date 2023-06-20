@@ -7,7 +7,9 @@
        <!-- banner section start -->
        <div class="banner_section layout_padding">
             <div class="container">
+
                <div id="my_slider" class="carousel slide" data-ride="carousel">
+
                   <div class="carousel-inner">
                      <div class="carousel-item active">
                         <div class="row">

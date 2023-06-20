@@ -3,7 +3,18 @@
         <section class="header_section">
 
             <div class="container">
-   
+
+
+
+            @if(session()->has('userId'))
+                <p class="badge badge-danger">
+                    <span> Please verify your email.</span>
+                    <a class="btn btn-success" href="{{route('email.verify',session()->get('userId'))}}">Verify now</a>
+                </p>
+            @endif
+
+
+
                <div class="containt_main">
                   <div id="mySidenav" class="sidenav">
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -14,21 +25,21 @@
                   </div>
                   <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
                   <div class="dropdown">
-                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category 
+                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category
                      </button>
-                     
+
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                     
+
 
                      @foreach($categories as $data)
-                    
+
                         <a class="dropdown-item" href="{{route('product.under.category', $data->id)}}">{{$data->name}}</a>
                         @endforeach
-                       
+
                      </div>
 
-                    
+
                   </div>
                   <div class="main">
                      <!-- Another variation with a button -->
@@ -63,21 +74,21 @@
                            </li>
 
                            @guest
-                           
+
                            <li><a href="#">
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <!--Registration Button trigger modal -->
-                              
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registration">
-  Registration
-</button></a>
-                           </li>
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registration">
+                          Registration
+                        </button></a>
+                                                   </li>
 
                            <li>
                               <!-- Login Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login">
-  Log in
-</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login">
+                          Log in
+                        </button>
                            </li>
                            @endguest
 
@@ -85,10 +96,10 @@
 
                      <li>
 
-                    
+
             <p>{{auth()->user()->name}}</p>
             <a href="{{route('user.logout')}}" class="btn btn-danger">Logout</a>
-                               
+
                      </li>
 
                      @endauth
@@ -131,7 +142,7 @@
          <input required name='password_confirmation' type="password" class=form-control placeholder="Retype password">
         </div>
       </div>
-     
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">submit</button>
@@ -163,7 +174,7 @@
          <input required name='password' type="password" class=form-control placeholder="password">
         </div>
       </div>
-    
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Log in</button>

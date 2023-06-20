@@ -15,69 +15,35 @@ class AdminController extends Controller
         return view ('Admin.pages.admin.list',compact('admins'));
     }
 
-
-
     public function form(){
-
-
         return view('Admin.pages.admin.form');
     }
-
-
 
 
     public function store(Request $request)
     {
 
-
         $validate=Validator::make($request->all(),[
-
-
           'admin_name'=>'required',
           'admin_email'=>'required',
           'password'=>'required|min:5',
-          
-
         ]);
 
         if ($validate-> fails()){
             toastr()->error($validate->getMessageBag());
             return redirect()->back();
-
         }
 
-      
         User::create([
-
             'name'=>$request->admin_name,
-           
             'email'=>$request->admin_email,
             'password'=>bcrypt($request->password),
             'type'=>'admin'
-            
+
         ]);
-        
-
-
-
 
             toastr()->success('Admin created successfully!');
             return redirect()->back();
-    
-
-
-
-     
-
-
-        
-       
-
-
-        
-      
-
-
     }
 
 
@@ -87,11 +53,18 @@ class AdminController extends Controller
     }
 
 
+    public function verify($id){
+        $admin=User::find($id);
+        $admin->update([
+           'email_verified_at'=>now()
+        ]);
+        return view('Admin.pages.admin.view',compact('admin'));
+    }
+
+
     public function delete($id){
         User::find($id)->delete();
         return redirect()->back();
-
-
     }
 }
-    
+

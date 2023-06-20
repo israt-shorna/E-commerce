@@ -3,26 +3,47 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AccountVerificationEmail;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
+
+    public function emailVerify($id){
+        $user=User::find($id);
+        $link=route('email.verify.link',$user->id);
+
+        Mail::to($user->email)->send(new AccountVerificationEmail($user));
+        toastr()->success('Verification link sent to your email.');
+        return redirect()->back();
+    }
+
+
+    public function emailVerifyLink($id)
+    {
+        $user=User::find($id);
+        $user->update([
+            'email_verified_at'=>now()
+        ]);
+//        dd($user);
+        toastr()->success('Email verification success.Please login.');
+        return redirect()->route('login');
+    }
+
     public function website(){
-
-        
-        
-
         return view('Website.pages.home');
     }
 
     public function productSearch(Request $request){
 
         $products=Product::where('name','like','%'.$request->search_key.'%')->get();
-       
+
 
         return view('website.pages.product.search-list',compact('products') );
 
@@ -65,24 +86,36 @@ class HomeController extends Controller
     }
 
     public function userLogin(Request $request){
-       
+
         $validate=Validator::make($request->all(),[
             'email'=>'required',
             'password'=>'required'
 
         ]);
+
         if($validate->fails()){
-            toastr()->error('login failed');
+            toastr()->error($validate->getMessageBag());
             return redirect()->back();
         }
 
         $credentials=$request->except('_token');
         if(auth()->attempt($credentials)){
+            if(auth()->user()->email_verified_at!=null)
+            {
+                toastr()->success('successfully logged in');
+                return redirect()->route('website');
+            }
 
-            toastr()->success('successfully logged in');
-            return redirect()->route('website');
+            $user_id=auth()->user()->id;
+
+            Auth::logout();
+
+            toastr()->warning('Email not verified.');
+            return redirect()->back()->with('userId',$user_id);
+
         }
-
+        toastr()->error('Invalid Credentials.');
+        return redirect()->back();
 
 
     }

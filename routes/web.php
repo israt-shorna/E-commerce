@@ -32,6 +32,8 @@ Route::get('/product-under-category/{id}',[FrontendHome::class,'productUnderCate
 Route::post('/user-store',[FrontendHome::class,'userStore'])->name('user.store');
 Route::post('/user-login',[FrontendHome::class,'userLogin'])->name('user.login');
 Route::get('/user-logout',[FrontendHome::class,'userLogout'])->name('user.logout');
+Route::get('/email-verify/{id}',[FrontendHome::class,'emailVerify'])->name('email.verify');
+Route::get('/email-verify-link/{id}',[FrontendHome::class,'emailVerifyLink'])->name('email.verify.link');
 
 // Vendors route
 Route::get('/vendor/home',[VendorController::class,'vendorHome'])->name('vendor.home');
