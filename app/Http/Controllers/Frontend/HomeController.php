@@ -7,6 +7,7 @@ use App\Mail\AccountVerificationEmail;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -16,10 +17,16 @@ class HomeController extends Controller
 {
 
     public function emailVerify($id){
+
         $user=User::find($id);
         $link=route('email.verify.link',$user->id);
 
-        Mail::to($user->email)->send(new AccountVerificationEmail($user));
+        Mail::to($user->email)->send(new AccountVerificationEmail($link));
+
+        $user->update([
+                'expired_at'=>Carbon::now()->addMinute(5)
+        ]);
+
         toastr()->success('Verification link sent to your email.');
         return redirect()->back();
     }
@@ -28,11 +35,18 @@ class HomeController extends Controller
     public function emailVerifyLink($id)
     {
         $user=User::find($id);
-        $user->update([
-            'email_verified_at'=>now()
-        ]);
+
+        if($user->expired_at > Carbon::now())
+        {
+            $user->update([
+                'email_verified_at'=>now()
+            ]);
+            toastr()->success('Email verification success.Please login.');
+            return redirect()->route('login');
+        }
+
 //        dd($user);
-        toastr()->success('Email verification success.Please login.');
+        toastr()->warning('Link expired');
         return redirect()->route('login');
     }
 
@@ -58,18 +72,19 @@ class HomeController extends Controller
 
     }
 
-    public function userStore(Request $request){
+    public function userStore(Request $request)
+    {
+
         $validate=Validator::make($request->all(),[
             'customer_name'=>'required',
-            'customer_email'=>'required',
+            'customer_email'=>'required|unique:users,email',
             'password'=>'required|confirmed',
             'password_confirmation'=>'required'
-
-
         ]);
 
+
         if($validate->fails()){
-            toastr()->error('registration failed');
+            toastr()->error('Something went wrong.');
             return redirect()->back();
         }
 
@@ -78,8 +93,8 @@ class HomeController extends Controller
             'email'=>$request->customer_email,
             'password'=>bcrypt($request->password),
             'type'=>'customer'
-
         ]);
+
         toastr()->success('successfully registered');
         return redirect()->route('website');
 
