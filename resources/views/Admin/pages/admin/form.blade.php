@@ -6,8 +6,13 @@
 <form action="{{route('admin.store')}}" method='post'>
      @csrf
      <div>
-            <label for="">Admin Name:</label>
-               <input require name="admin_name" placeholder="Enter admin name" type="text" class="form-control">
+            <label for="">First Name:</label>
+               <input require name="first_name" placeholder="Enter first name" type="text" class="form-control">
+    </div>
+
+    <div>
+            <label for="">Last Name:</label>
+               <input require name="last_name" placeholder="Enter last name" type="text" class="form-control">
     </div>
 
                <!-- <div>
@@ -26,7 +31,7 @@
                </div> -->
                <div>
                    <label for="">Email</label>
-                   <textarea required type='email' name="admin_email" placeholder="Email" class="form-control"></textarea>
+                   <input required type='email' name="admin_email" placeholder="Email" class="form-control"></textarea>
                </div>
                <div>
                    <label for="">Password</label>

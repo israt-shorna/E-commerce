@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function list(){
         $admins = User::where('type','=','admin')->paginate(4);
 
-        return view ('Admin.pages.admin.list',compact('admins'));
+        return view('Admin.pages.admin.list',compact('admins'));
     }
 
     public function form(){
@@ -24,18 +24,20 @@ class AdminController extends Controller
     {
 
         $validate=Validator::make($request->all(),[
-          'admin_name'=>'required',
-          'admin_email'=>'required',
+          'first_name'=>'required',
+          'last_name'=>'required',
+          'admin_email'=>'required|email',
           'password'=>'required|min:5',
         ]);
-
+       
         if ($validate-> fails()){
-            toastr()->error($validate->getMessageBag());
+            toastr()->error('Validation failed.');
             return redirect()->back();
         }
-
+       
         User::create([
-            'name'=>$request->admin_name,
+            'first_name'=>$request->first_name,
+            'last_name'=>$request->last_name,
             'email'=>$request->admin_email,
             'password'=>bcrypt($request->password),
             'type'=>'admin'

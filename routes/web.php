@@ -59,11 +59,11 @@ Route::group(['prefix'=>'admin'],function(){
             Route::get('/logout',[HomeController::class,'logout'])->name('logout');
 
             // admin
-            Route::get('/admin/list',[AdminController::class,'list'])->name('admin.list');
-            Route::get('/admin/form',[AdminController::class,'form'])->name('admin.form');
-            Route::post('/admin/store',[AdminController::class,'store'])->name('admin.store');
-            Route::get('/admin/view/{id}',[AdminController::class,'view'])->name('admin.view');
-            Route::get('/admin/delete/{id}',[AdminController::class,'delete'])->name('admin.delete');
+            Route::get('/list',[AdminController::class,'list'])->name('admin.list');
+            Route::get('/form',[AdminController::class,'form'])->name('admin.form');
+            Route::post('/store',[AdminController::class,'store'])->name('admin.store');
+            Route::get('/view/{id}',[AdminController::class,'view'])->name('admin.view');
+            Route::get('/delete/{id}',[AdminController::class,'delete'])->name('admin.delete');
 
 
 

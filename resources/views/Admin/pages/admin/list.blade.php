@@ -18,7 +18,7 @@
     @foreach($admins as $key=>$data)
     <tr>
       <th scope="row">{{$key+1}}</th>
-      <td>{{$data->name}}</td>
+      <td>{{$data->full_name}}</td>
       <td>{{$data->email}}</td>
       <td>{{$data->mobile_number}}</td>
       <td>
