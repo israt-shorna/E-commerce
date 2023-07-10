@@ -51,6 +51,10 @@ Route::group(['prefix'=>'admin'],function(){
     Route::get('/login',[HomeController::class,'login'])->name('login');
     Route::post('/dologin',[HomeController::class,'dologin'])->name('dologin');
 
+    Route::get('/forget-password',[HomeController::class,'forgetPassword'])->name('forget.password');
+    Route::post('/forget-password-send-link',[HomeController::class,'forgetPasswordSendLink'])->name('forget.password.send.link');
+    Route::get('/forget-password-reset-form',[HomeController::class,'forgetPasswordResetForm'])->name('forget.password.reset.form');
+
     Route::group(['middleware'=>'auth'], function(){
 
         Route::group(['middleware'=>'checkadmin'],function(){
