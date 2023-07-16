@@ -3,7 +3,7 @@
 @section('content')
 
 <a href="{{route('admin.form')}}" class="btn btn-success my-2"> add new</a>
-
+<h1>{{$mg}}</h1>
 <table class="table">
   <thead>
     <tr>

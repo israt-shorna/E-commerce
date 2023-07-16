@@ -5,14 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
     public function list(){
-        $admins = User::where('type','=','admin')->paginate(4);
+       
 
-        return view('Admin.pages.admin.list',compact('admins'));
+        // Cache::forget('users');
+        if(Cache::has('users')){
+            $admins=Cache::get('users');
+            $mg="data from cache";
+        }else{
+            $admins = User::where('type','=','admin')->paginate(100);
+            Cache::put('users',$admins);
+            $mg="data from database";
+        }
+
+    
+
+        return view('Admin.pages.admin.list',compact('admins','mg'));
     }
 
     public function form(){
@@ -22,6 +36,7 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+        Log::debug('Starting user store.');
 
         $validate=Validator::make($request->all(),[
           'first_name'=>'required',
@@ -31,11 +46,14 @@ class AdminController extends Controller
         ]);
        
         if ($validate-> fails()){
+            Log::debug('Validation failed.'.json_encode($validate->getMessageBag(),true));
             toastr()->error('Validation failed.');
             return redirect()->back();
         }
        
-        User::create([
+        Log::debug('Validation pass.');
+
+        $user=User::create([
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
             'email'=>$request->admin_email,
@@ -43,7 +61,7 @@ class AdminController extends Controller
             'type'=>'admin'
 
         ]);
-
+        Log::debug('user store success. Name is : '.$user->first_name);
             toastr()->success('Admin created successfully!');
             return redirect()->back();
     }
