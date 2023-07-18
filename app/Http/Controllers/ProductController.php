@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateProduct;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 
 class ProductController extends Controller
 {
@@ -41,6 +43,9 @@ class ProductController extends Controller
         'price'=>$request->price
 
         ]);
+
+      
+
         return redirect()->route('products.list');
 
 

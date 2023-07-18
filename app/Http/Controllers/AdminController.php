@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateProduct;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class AdminController extends Controller
             $admins=Cache::get('users');
             $mg="data from cache";
         }else{
-            $admins = User::where('type','=','admin')->paginate(100);
+            $admins = User::where('type','=','admin')->orderBy('id','desc')->paginate(100);
             Cache::put('users',$admins);
             $mg="data from database";
         }
@@ -62,6 +63,8 @@ class AdminController extends Controller
 
         ]);
         Log::debug('user store success. Name is : '.$user->first_name);
+
+        event(new CreateProduct("test"));
             toastr()->success('Admin created successfully!');
             return redirect()->back();
     }
