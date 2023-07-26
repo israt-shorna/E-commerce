@@ -6,6 +6,7 @@ use App\Events\CreateProduct;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
 
 class ProductCreateListener
 {
@@ -22,10 +23,15 @@ class ProductCreateListener
      */
     public function handle(CreateProduct $event): void
     {
-       
-        if(Cache::has('users'))
-        {
-            Cache::forget('users');
-        }
+      
+        // if(Cache::has('users'))
+        // {
+        //     Cache::forget('users');
+        // }
+
+
+        // Mail::to('foysal.kodeeo@gmail.com')->send()
+
+
     }
 }

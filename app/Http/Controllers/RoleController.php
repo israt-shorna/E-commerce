@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\RolePermission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
@@ -104,6 +105,7 @@ class RoleController extends Controller
         }catch(\Throwable $exception)
         {
             DB::rollBack();
+            Log::debug($exception->getMessage());
             toastr()->error('Something went wrong.');
             return redirect()->back();
         }
